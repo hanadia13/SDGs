@@ -1,6 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\WasteController;
+use App\Http\Controllers\EnergyController;
+use App\Http\Controllers\WaterController;
+use App\Http\Controllers\ChecksheetController;
+use App\Http\Controllers\ReportController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +21,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'welcome');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
@@ -24,3 +31,11 @@ Route::view('profile', 'profile')
     ->name('profile');
 
 require __DIR__.'/auth.php';
+
+Auth::routes();
+Route::any('/', [HomeController::class, 'index']);
+Route::get('/waste', [WasteController::class, 'index']);
+Route::get('/energy', [EnergyController::class, 'index']);
+Route::get('/water', [WaterController::class, 'index']);
+Route::get('/checksheet', [ChecksheetController::class, 'index']);
+Route::get('/report', [ReportController::class, 'index']);
