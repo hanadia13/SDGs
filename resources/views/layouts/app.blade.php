@@ -3,7 +3,14 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    {{-- parse last url --}}
+    {{-- as example localhost/test should display test --}}
+    @php
+    if ( parse_url(url()->full(), PHP_URL_PATH)  != null)
+        echo "<h1>".ucfirst(ltrim(basename(parse_url(url()->full(), PHP_URL_PATH)), '/'))."</h1>";
+    else
+        echo "<h1>Dashboard</h1>";
+    @endphp
 @stop
 
 @section('content')
@@ -50,9 +57,13 @@
         };
 
 
-        for (const [key, value] of Object.entries(identifier)) {
-            createChart(labels, datasetLabel, data, value, key);
+        // if page is /
+        if (window.location.pathname === "/") {
+            for (const [key, value] of Object.entries(identifier)) {
+                createChart(labels, datasetLabel, data, value, key);
+            }
         }
+
 
     </script>
 @stop

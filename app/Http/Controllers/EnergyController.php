@@ -11,7 +11,7 @@ class EnergyController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('energy.index');
     }
 
     /**
